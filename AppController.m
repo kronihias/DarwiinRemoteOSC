@@ -296,33 +296,33 @@ void SetLED(void *context, int arglen, const void *args,
 	// set the address
 	memset(address, 0, 16);
     strcpy(address, "127.0.0.1");
-	
-    char **argv = *_NSGetArgv();
     
-    /*
-    printf("\n number of arguments=%d \n", *_NSGetArgc());
-    for (int i = 0; i< *_NSGetArgc(); i++) {
-        printf("\n %i. arg=%s \n", i, argv[i]);
-    }
-    */
+    NSUserDefaults *standardDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *sndAddr = [standardDefaults stringForKey:@"ip"];
+    NSInteger sndPort = [standardDefaults integerForKey:@"port"];
+    NSInteger rcvPort = [standardDefaults integerForKey:@"rcv_port"];
+    
+   //NSLog (@"aString argument: %@\nanInteger argument: %d", aString, anInteger);
+    
     
     // commandline arguments -> very ugly...
     
-    if (argv[1] != NULL)
+    if (sndAddr)
     {
-        strcpy(address, argv[1]);
+        address = [sndAddr UTF8String];
     }
-    if (argv[2] != NULL)
+    if (sndPort)
     {
-        portNumber = atoi(argv[2]);
-    }
-    
-    if (argv[3] != NULL)
-    {
-        RcvPortNumber = atoi(argv[3]);
+        portNumber = sndPort;
     }
     
+    if (rcvPort)
+    {
+        RcvPortNumber = rcvPort;
+    }
     
+
 	// sending OSC port
 	NSLog(@"OSC connecting to %s:%hu...", address, portNumber);
     port   = [OSCPort oscPortToAddress:address portNumber: portNumber];
