@@ -1,0 +1,54 @@
+Port settings can be changed by command line argument -> see README
+
+Standard IP: 127.0.0.1
+Port: 5600
+
+/wii/connected , i
+/wii/mousemode , i
+/wii/button/a , i
+/wii/button/b , i
+/wii/button/up , i
+/wii/button/down , i
+/wii/button/left , i
+/wii/button/right , i
+/wii/button/minus , i
+/wii/button/plus , i
+/wii/button/home , i
+/wii/button/one , i
+/wii/button/two , i
+/wii/acc , fff
+/wii/orientation , ff
+/wii/irdata , ffffffffffff
+/wii/batterylevel , f
+
+/nunchuk/joystick , ff
+/nunchuk/button/z , i
+/nunchuk/button/c , i
+/nunchuk/acc , fff
+/nunchuk/orientation , ff
+
+
+/classic/button/x, f
+/classic/button/y, f
+/classic/button/a, f
+/classic/button/b, f
+/classic/button/l, f
+/classic/button/r, f
+/classic/button/zl, f
+/classic/button/zr, f
+/classic/button/up, f
+/classic/button/down, f
+/classic/button/left, f
+/classic/button/right, f
+/classic/button/minus, f
+/classic/button/home, f
+/classic/button/plus, f
+
+/classic/joystick/left , ff
+/classic/joystick/right , ff
+
+
+RECEIVE PORT: 5601
+/wii/batterylevel
+/wii/forcefeedback, i
+/wii/led, iiii

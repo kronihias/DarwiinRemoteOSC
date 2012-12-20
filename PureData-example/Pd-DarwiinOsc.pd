@@ -1,0 +1,322 @@
+#N canvas 63 48 573 693 10;
+#X text 368 631 2012 Matthias Kronlachner;
+#X text 369 652 www.matthiaskronlachner.com;
+#X obj 11 321 cnv 15 500 300 empty empty send_to_darwiinremote 20 12
+0 14 -4032 -66577 0;
+#X obj 88 532 packOSC;
+#X msg 53 377 send /wii/batterylevel;
+#X obj 88 584 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
+1;
+#X msg 304 475 send /wii/forcefeedback \$1;
+#X obj 278 450 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 304 402 t b b;
+#X msg 304 446 0;
+#X msg 370 420 1;
+#X obj 304 358 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 304 424 delay 100;
+#X obj 304 380 metro 200;
+#X msg 88 469 send /wii/led \$1 \$2 \$3 \$4;
+#N canvas 0 22 296 198 led-logic 0;
+#X obj 47 26 inlet;
+#X obj 88 100 pack 0 0 0 0;
+#X obj 88 141 outlet;
+#X obj 94 25 inlet;
+#X obj 94 47 t b f;
+#X obj 134 25 inlet;
+#X obj 134 47 t b f;
+#X obj 174 24 inlet;
+#X obj 174 46 t b f;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 4 0;
+#X connect 4 0 1 0;
+#X connect 4 1 1 1;
+#X connect 5 0 6 0;
+#X connect 6 0 1 0;
+#X connect 6 1 1 2;
+#X connect 7 0 8 0;
+#X connect 8 0 1 0;
+#X connect 8 1 1 3;
+#X restore 88 441 pd led-logic;
+#X obj 88 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 111 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 134 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 157 420 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 87 401 set LEDs;
+#X text 47 359 force battery level return;
+#X obj 88 561 udpsend;
+#X text 320 531 first connect !!;
+#X obj 10 -9 cnv 15 500 300 empty empty receive_from_darwiinremote
+20 12 0 14 -204800 -66577 0;
+#X obj 14 38 unpackOSC;
+#N canvas 0 22 450 300 acceleration 0;
+#X floatatom 42 83 5 0 0 0 - - -;
+#X floatatom 99 83 5 0 0 0 - - -;
+#X obj 42 61 unpack f f f;
+#X floatatom 145 79 5 0 0 0 - - -;
+#X obj 42 20 inlet;
+#X connect 2 0 0 0;
+#X connect 2 1 1 0;
+#X connect 2 2 3 0;
+#X connect 4 0 2 0;
+#X restore 72 243 pd acceleration;
+#N canvas 0 22 450 300 orientation 0;
+#X obj 26 129 unpack f f;
+#X floatatom 26 151 5 0 0 0 - - -;
+#X floatatom 83 151 5 0 0 0 - - -;
+#X obj 26 50 inlet;
+#X text 193 149 -90 -> 90°;
+#X text 18 171 roll;
+#X text 88 170 pitch;
+#X connect 0 0 1 0;
+#X connect 0 1 2 0;
+#X connect 3 0 0 0;
+#X restore 14 264 pd orientation;
+#X obj 14 63 routeOSC /wii /nunchuk /classic;
+#N canvas 414 137 344 309 nunchuk 0;
+#X obj 30 20 inlet;
+#X obj 30 56 routeOSC /orientation /acc /joystick /button;
+#X obj 225 117 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 265 116 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 225 88 routeOSC /c /z;
+#X obj 160 143 unpack f f;
+#X floatatom 160 165 5 0 0 0 - - -;
+#X floatatom 217 166 5 0 0 0 - - -;
+#X floatatom 95 215 5 0 0 0 - - -;
+#X floatatom 129 214 5 0 0 0 - - -;
+#X obj 95 193 unpack f f f;
+#X floatatom 164 214 5 0 0 0 - - -;
+#X floatatom 30 268 5 0 0 0 - - -;
+#X floatatom 87 267 5 0 0 0 - - -;
+#X obj 30 246 unpack f f;
+#X text 32 283 roll;
+#X text 92 282 pitch;
+#X text 126 266 -90 -> 90°;
+#X connect 0 0 1 0;
+#X connect 1 0 14 0;
+#X connect 1 1 10 0;
+#X connect 1 2 5 0;
+#X connect 1 3 4 0;
+#X connect 4 0 2 0;
+#X connect 4 1 3 0;
+#X connect 5 0 6 0;
+#X connect 5 1 7 0;
+#X connect 10 0 8 0;
+#X connect 10 1 9 0;
+#X connect 10 2 11 0;
+#X connect 14 0 12 0;
+#X connect 14 1 13 0;
+#X restore 75 91 pd nunchuk;
+#X obj 14 147 routeOSC /orientation /acc /button /irdata /point;
+#N canvas 159 280 643 284 Buttons 0;
+#X obj 446 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 20 106 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 73 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 127 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 180 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 234 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 276 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 319 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 361 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 404 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 489 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 28 60 BUTTONS;
+#X obj 20 30 inlet;
+#X obj 20 77 routeOSC /up /down /left /right;
+#X obj 234 106 routeOSC /a /b /minus /home /plus /one /two;
+#X connect 12 0 13 0;
+#X connect 13 0 1 0;
+#X connect 13 1 2 0;
+#X connect 13 2 3 0;
+#X connect 13 3 4 0;
+#X connect 13 4 14 0;
+#X connect 14 0 5 0;
+#X connect 14 1 6 0;
+#X connect 14 2 7 0;
+#X connect 14 3 8 0;
+#X connect 14 4 9 0;
+#X connect 14 5 0 0;
+#X connect 14 6 10 0;
+#X restore 130 218 pd Buttons;
+#X obj 305 243 * 100;
+#X floatatom 305 265 5 0 0 0 batterylevel - -;
+#X obj 305 223 routeOSC /batterylevel /connected;
+#X obj 402 255 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#N canvas 324 106 312 229 classic-controller 0;
+#X obj 41 11 inlet;
+#X obj 41 33 routeOSC /button /joystick;
+#X obj 117 79 routeOSC /left /right;
+#N canvas 112 271 643 284 Buttons 0;
+#X obj 373 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 20 106 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 73 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 127 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 180 105 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 234 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 263 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 286 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 318 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 351 132 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 406 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X text 28 60 BUTTONS;
+#X obj 20 30 inlet;
+#X obj 20 77 routeOSC /up /down /left /right;
+#X obj 234 106 routeOSC /a /b /minus /home /plus /x /y /l /r /zl /zr
+;
+#X obj 426 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 455 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 478 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 510 133 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X connect 12 0 13 0;
+#X connect 13 0 1 0;
+#X connect 13 1 2 0;
+#X connect 13 2 3 0;
+#X connect 13 3 4 0;
+#X connect 13 4 14 0;
+#X connect 14 0 5 0;
+#X connect 14 1 6 0;
+#X connect 14 2 7 0;
+#X connect 14 3 8 0;
+#X connect 14 4 9 0;
+#X connect 14 5 0 0;
+#X connect 14 6 10 0;
+#X connect 14 7 15 0;
+#X connect 14 8 16 0;
+#X connect 14 9 17 0;
+#X connect 14 10 18 0;
+#X restore 41 111 pd Buttons;
+#X obj 117 169 unpack f f;
+#X floatatom 117 191 5 0 0 0 - - -;
+#X floatatom 174 192 5 0 0 0 - - -;
+#X obj 178 118 unpack f f;
+#X floatatom 178 140 5 0 0 0 - - -;
+#X floatatom 235 141 5 0 0 0 - - -;
+#X connect 0 0 1 0;
+#X connect 1 0 3 0;
+#X connect 1 1 2 0;
+#X connect 2 0 4 0;
+#X connect 2 1 7 0;
+#X connect 4 0 5 0;
+#X connect 4 1 6 0;
+#X connect 7 0 8 0;
+#X connect 7 1 9 0;
+#X restore 142 92 pd classic-controller;
+#X obj 14 16 udpreceive 5600;
+#X obj 169 504 loadbang;
+#X msg 174 557 disconnect;
+#X msg 169 531 connect 127.0.0.1 5601;
+#X text 324 -3 ROUTING SCHEME FOR DARWIINOSC;
+#N canvas 284 234 513 289 irdata 0;
+#X obj 114 42 inlet;
+#X text 220 45 4 points with x \, y \, size;
+#X obj 25 118 unpack 0 0 0;
+#X floatatom 25 140 5 0 0 0 - - -;
+#X floatatom 59 140 5 0 0 0 - - -;
+#X floatatom 94 140 5 0 0 0 - - -;
+#X obj 114 72 list split 3;
+#X obj 144 159 unpack 0 0 0;
+#X floatatom 144 181 5 0 0 0 - - -;
+#X floatatom 178 181 5 0 0 0 - - -;
+#X floatatom 213 181 5 0 0 0 - - -;
+#X obj 144 121 list split 3;
+#X obj 263 198 unpack 0 0 0;
+#X floatatom 263 220 5 0 0 0 - - -;
+#X floatatom 297 220 5 0 0 0 - - -;
+#X floatatom 332 220 5 0 0 0 - - -;
+#X obj 263 160 list split 3;
+#X obj 379 196 unpack 0 0 0;
+#X floatatom 379 218 5 0 0 0 - - -;
+#X floatatom 413 218 5 0 0 0 - - -;
+#X floatatom 448 218 5 0 0 0 - - -;
+#X text 34 163 x \, y \, size;
+#X connect 0 0 6 0;
+#X connect 2 0 3 0;
+#X connect 2 1 4 0;
+#X connect 2 2 5 0;
+#X connect 6 0 2 0;
+#X connect 6 1 11 0;
+#X connect 7 0 8 0;
+#X connect 7 1 9 0;
+#X connect 7 2 10 0;
+#X connect 11 0 7 0;
+#X connect 11 1 16 0;
+#X connect 12 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 2 15 0;
+#X connect 16 0 12 0;
+#X connect 16 1 17 0;
+#X connect 17 0 18 0;
+#X connect 17 1 19 0;
+#X connect 17 2 20 0;
+#X restore 188 179 pd irdata;
+#X text 119 17 change port/ip settings with command line arguments
+;
+#X connect 3 0 22 0;
+#X connect 4 0 3 0;
+#X connect 6 0 3 0;
+#X connect 7 0 6 0;
+#X connect 8 0 12 0;
+#X connect 8 1 10 0;
+#X connect 9 0 6 0;
+#X connect 10 0 6 0;
+#X connect 11 0 13 0;
+#X connect 12 0 9 0;
+#X connect 13 0 8 0;
+#X connect 14 0 3 0;
+#X connect 15 0 14 0;
+#X connect 16 0 15 0;
+#X connect 17 0 15 1;
+#X connect 18 0 15 2;
+#X connect 19 0 15 3;
+#X connect 22 0 5 0;
+#X connect 25 0 28 0;
+#X connect 28 0 30 0;
+#X connect 28 1 29 0;
+#X connect 28 2 36 0;
+#X connect 30 0 27 0;
+#X connect 30 1 26 0;
+#X connect 30 2 31 0;
+#X connect 30 3 42 0;
+#X connect 30 5 34 0;
+#X connect 32 0 33 0;
+#X connect 34 0 32 0;
+#X connect 34 1 35 0;
+#X connect 37 0 25 0;
+#X connect 38 0 40 0;
+#X connect 39 0 22 0;
+#X connect 40 0 22 0;
