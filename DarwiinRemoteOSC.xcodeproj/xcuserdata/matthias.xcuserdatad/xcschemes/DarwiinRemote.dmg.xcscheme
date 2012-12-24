@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9EC9174A10E94AB200CC575F"
                BuildableName = "DarwiinRemote.dmg"
-               BlueprintName = "DarwiinRemote.dmg"
-               ReferencedContainer = "container:DarwiinRemote.xcodeproj">
+               BlueprintName = "DarwiinRemoteOSC.dmg"
+               ReferencedContainer = "container:DarwiinRemoteOSC.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		9EC9174A10E94AB200CC575F /* DarwiinRemote.dmg */ = {
+		9EC9174A10E94AB200CC575F /* DarwiinRemoteOSC.dmg */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 9EC9174F10E94ABF00CC575F /* Build configuration list for PBXAggregateTarget "DarwiinRemote.dmg" */;
+			buildConfigurationList = 9EC9174F10E94ABF00CC575F /* Build configuration list for PBXAggregateTarget "DarwiinRemoteOSC.dmg" */;
 			buildPhases = (
 				9EC9174910E94AB200CC575F /* ShellScript */,
 			);
 			dependencies = (
 			);
-			name = DarwiinRemote.dmg;
+			name = DarwiinRemoteOSC.dmg;
 			productName = DarwiinRemote.dmg;
 		};
 /* End PBXAggregateTarget section */
@@ -332,9 +332,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* DarwiinRemote */ = {
+		8D1107260486CEB800E47090 /* DarwiinRemoteOSC */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "DarwiinRemote" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "DarwiinRemoteOSC" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -345,7 +345,7 @@
 			);
 			dependencies = (
 			);
-			name = DarwiinRemote;
+			name = DarwiinRemoteOSC;
 			productInstallPath = "$(HOME)/Applications";
 			productName = WiiRemote;
 			productReference = 8D1107320486CEB800E47090 /* DarwiinRemote.app */;
@@ -356,7 +356,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DarwiinRemote" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DarwiinRemoteOSC" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -367,8 +367,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* DarwiinRemote */,
-				9EC9174A10E94AB200CC575F /* DarwiinRemote.dmg */,
+				8D1107260486CEB800E47090 /* DarwiinRemoteOSC */,
+				9EC9174A10E94AB200CC575F /* DarwiinRemoteOSC.dmg */,
 			);
 		};
 /* End PBXProject section */
@@ -409,7 +409,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -ex\n\n[ \"$ACTION\" = build ] || exit 0\n[ \"$BUILD_VARIANTS\" = \"normal\" ] || exit 0\n\ndir=\"`mktemp -d  -t DarwiinRemote`\"\ndmg=\"$HOME/Desktop/$PROJECT_NAME-`date '+%Y-%m-%d-%H-%M'`.dmg\"\n\nrm -rf \"$dir\"\nmkdir \"$dir\"\ncp -R \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app\" \"$dir\"\nhdiutil create -srcfolder \"$dir\" -volname \"$PROJECT_NAME\" \"$dmg\"\nhdiutil internet-enable -yes \"$dmg\"\nrm -rf \"$dir\"";
+			shellScript = "set -ex\n\n[ \"$ACTION\" = build ] || exit 0\n[ \"$BUILD_VARIANTS\" = \"normal\" ] || exit 0\n\ndir=\"`mktemp -d  -t DarwiinRemote`\"\ndmg=\"$HOME/Desktop/$PROJECT_NAME-`date '+%Y-%m-%d-%H-%M'`.dmg\"\nproject_dir=`pwd` # current dir\n\nrm -rf \"$dir\"\nmkdir \"$dir\"\ncp -R \"$BUILT_PRODUCTS_DIR/$PROJECT_NAME.app\" \"$dir\"\ncp \"$project_dir/addressSpace.txt\" \"$dir\"\ncp -R \"$project_dir/PureData-example\" \"$dir\"\ncp -R \"$project_dir/COPYRIGHT.txt\" \"$dir\"\ncp -R \"$project_dir/README\" \"$dir\"\n\nhdiutil create -srcfolder \"$dir\" -volname \"$PROJECT_NAME\" \"$dmg\"\nhdiutil internet-enable -yes \"$dmg\"\nrm -rf \"$dir\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -472,7 +472,9 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				PRODUCT_NAME = DarwiinRemote.dmg;
+				PRODUCT_NAME = DarwiinRemoteOSC.dmg;
+				SDKROOT = "";
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -482,7 +484,9 @@
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				PRODUCT_NAME = DarwiinRemote.dmg;
+				PRODUCT_NAME = DarwiinRemoteOSC.dmg;
+				SDKROOT = "";
+				VALID_ARCHS = x86_64;
 				ZERO_LINK = NO;
 			};
 			name = Release;
@@ -523,7 +527,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = DarwiinRemote;
+				PRODUCT_NAME = DarwiinRemoteOSC;
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
@@ -566,7 +570,7 @@
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				PRODUCT_NAME = DarwiinRemote;
+				PRODUCT_NAME = DarwiinRemoteOSC;
 				SDKROOT = "";
 				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = app;
@@ -602,7 +606,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9EC9174F10E94ABF00CC575F /* Build configuration list for PBXAggregateTarget "DarwiinRemote.dmg" */ = {
+		9EC9174F10E94ABF00CC575F /* Build configuration list for PBXAggregateTarget "DarwiinRemoteOSC.dmg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9EC9174B10E94AB200CC575F /* Debug */,
@@ -611,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "DarwiinRemote" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "DarwiinRemoteOSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
@@ -620,7 +624,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DarwiinRemote" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "DarwiinRemoteOSC" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

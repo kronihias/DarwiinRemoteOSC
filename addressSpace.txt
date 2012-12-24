@@ -47,6 +47,7 @@ Port: 5600
 /classic/joystick/left , ff
 /classic/joystick/right , ff
 
+/balanceboard/pressure , ffff (Top Right, Bottom Right, Top Left, Bottom Left)
 
 RECEIVE PORT: 5601
 /wii/batterylevel

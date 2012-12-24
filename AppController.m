@@ -1316,6 +1316,10 @@ void SetLED(void *context, int arglen, const void *args,
 - (void) pressureChanged:(WiiPressureSensorType)type pressureTR:(float) pressureTR pressureBR:(float) pressureBR 
                                                          pressureTL:(float) pressureTL pressureBL:(float) pressureBL {
 	if (type == WiiBalanceBoardPressureSensor){
+        
+        // output wiibalanceboard
+        [port sendTo:"/balanceboard/pressure" types:"ffff", (float)pressureTR,(float)pressureBR,(float)pressureTL,(float)pressureBL];
+        
 		[bPressureTR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTR]];
 		[bPressureBR setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureBR]];
 		[bPressureTL setStringValue: [NSString stringWithFormat:@"%.2fkg", pressureTL]];
